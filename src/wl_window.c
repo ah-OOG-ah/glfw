@@ -43,6 +43,8 @@
 #include <sys/timerfd.h>
 #include <poll.h>
 
+#include <linux/input.h>
+
 #include "wayland-client-protocol.h"
 #include "wayland-xdg-shell-client-protocol.h"
 #include "wayland-xdg-decoration-client-protocol.h"

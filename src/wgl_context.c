@@ -386,6 +386,8 @@ static void destroyContextWGL(_GLFWwindow* window)
     }
 }
 
+GLFWAPI LPCTSTR _glfw_opengl_library = NULL;
+
 // Initialize WGL
 //
 GLFWbool _glfwInitWGL(void)
@@ -397,7 +399,14 @@ GLFWbool _glfwInitWGL(void)
     if (_glfw.wgl.instance)
         return GLFW_TRUE;
 
-    _glfw.wgl.instance = _glfwPlatformLoadModule("opengl32.dll");
+    if (_glfw_opengl_library)
+    {
+        _glfw.wgl.instance = _glfwPlatformLoadModule(_glfw_opengl_library);
+    }
+    if (!_glfw.wgl.instance)
+    {
+        _glfw.wgl.instance = _glfwPlatformLoadModule("opengl32.dll");
+    }
     if (!_glfw.wgl.instance)
     {
         _glfwInputErrorWin32(GLFW_PLATFORM_ERROR,
